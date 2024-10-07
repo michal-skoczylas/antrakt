@@ -55,12 +55,14 @@ Window {
                     anchors.topMargin: 100
                     anchors.bottomMargin: 15
                     font.bold: true
-                    onClicked:
-                        if(backend){
-                            backend.generatePdf()
-                        }else{
-                            console.log("Backend nie jest zdefiniownay")
-                        }
+                    onClicked:{
+                        saveFileDialog.open()
+                        // if(backend){
+                        //     backend.generatePdf()
+                        // }else{
+                        //     console.log("Backend nie jest zdefiniownay")
+                        // }
+                    }
                 }
 
                 Button {
@@ -107,19 +109,14 @@ Window {
                 id: imageRepeater
                 model: imageModel
             Image {
-               source: modelData
-                anchors.centerIn: parent
-                // Offset for each image
-                // Offset for each image
-                opacity: 0.95
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-                anchors.leftMargin: 0
-                anchors.rightMargin: 1
-                anchors.topMargin: 0
-                anchors.bottomMargin: 1
+                source: modelData
+                        anchors.centerIn: parent
+                        fillMode: Image.PreserveAspectFit
+                        width: parent.width
+                        height: parent.height
+                        opacity: 0.8
+                        x: index * 10  // Offset for each image
+                        y: index * 10  // Offset for each image
             }
         }
         }
@@ -147,6 +144,22 @@ Window {
             }
 
         }
+    }
+    FileDialog{
+        id: saveFileDialog
+        title: "Save PDF"
+        fileMode: FileDialog.SaveFile
+        nameFilters: ["PDF files (*pdf)"]
+        onAccepted: {
+            if(backend){
+        backend.savePath(saveFileDialog.selectedFile)
+            backend.generatePdf()
+            }
+            else{
+                console.log("Backend nie jest zdefiniowany")
+            }
+        }
+
     }
 
 }
