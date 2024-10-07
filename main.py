@@ -22,7 +22,6 @@ class Backend(QObject):
             image = cv2.imread(image_path)
             if image is None:
                 print(f"Could not open {image_path}")
-                print("failxd")
                 continue
             ocr_result = pytesseract.image_to_string(image)
             print("Wyswietlam")
