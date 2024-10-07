@@ -23,9 +23,9 @@ class Backend(QObject):
             if image is None:
                 print(f"Could not open {image_path}")
                 print("failxd")
-            continue
+                continue
             ocr_result = pytesseract.image_to_string(image)
-            print("Wyswiet;a,m")
+            print("Wyswietlam")
             print(ocr_result)
             self.ocr_results += ocr_result + "\n"
         print(self.ocr_results) # Połączenie skanów wszystkkich zdjęć w jednego stringa
@@ -33,7 +33,7 @@ class Backend(QObject):
     @Slot()
     def generatePdf(self):
         doc=Document()
-        section=Section("Outpu")
+        section=Section("Output")
         section.append(self.ocr_results) # tu zmienic na latexowa forme
         doc.append(section)
 
