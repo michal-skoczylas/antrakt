@@ -105,20 +105,28 @@ Window {
             anchors.bottom: parent.bottom
             anchors.leftMargin: 5
             anchors.rightMargin: 5
-            Repeater{
-                id: imageRepeater
-                model: imageModel
-            Image {
-                source: modelData
-                        anchors.centerIn: parent
+
+            Flickable {
+                width: parent.width
+                height: parent.height
+                contentWidth: parent.width
+                contentHeight: model.count * parent.height // Adjust height based on number of images
+
+                Repeater {
+                    id: imageReapeter
+                    model: imageModel
+
+                    Image {
+                        source: modelData
+                        anchors.horizontalCenter: parent.horizontalCenter
                         fillMode: Image.PreserveAspectFit
                         width: parent.width
-                        height: parent.height
-                        opacity: 0.8
-                        x: index * 10  // Offset for each image
-                        y: index * 10  // Offset for each image
+                        height: parent.height / 3 
+                        opacity: 1
+                        y: index * (parent.height / 3)
+                    }
+                }
             }
-        }
         }
         }
     }
