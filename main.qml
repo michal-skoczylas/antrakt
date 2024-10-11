@@ -34,6 +34,7 @@ Window {
             Rectangle {
                 id: btnBckg
                 color: "#f0565c68"
+                radius: 10
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.top: parent.top
@@ -55,6 +56,12 @@ Window {
                     anchors.topMargin: 100
                     anchors.bottomMargin: 15
                     font.bold: true
+                    background: Rectangle{
+                        id: pdfButtonBackground
+                        color: "#f0464b55"
+                        radius: 5
+                    }
+
                     onClicked:{
                         saveFileDialog.open()
                         // if(backend){
@@ -62,6 +69,7 @@ Window {
                         // }else{
                         //     console.log("Backend nie jest zdefiniownay")
                         // }
+                        pdfButtonBackground.color="#f123c68"
                     }
                 }
 
@@ -78,6 +86,11 @@ Window {
                     anchors.bottomMargin: 95
                     font.bold: true
                     onClicked: fileDialog.open()
+                    background: Rectangle{
+                        id: imgButtonBackground
+                        color: "#f0464b55"
+                        radius:5
+                    }
 
                 }
             }
@@ -86,6 +99,7 @@ Window {
         Rectangle {
             id: imgBackground
             color: "#2f3440"
+            radius: 4
             anchors.left: parent.left
             anchors.right: buttonBackground.left
             anchors.top: parent.top
@@ -121,7 +135,7 @@ Window {
                         anchors.horizontalCenter: parent.horizontalCenter
                         fillMode: Image.PreserveAspectFit
                         width: parent.width
-                        height: parent.height / 3 
+                        height: parent.height / 3
                         opacity: 1
                         y: index * (parent.height / 3)
                     }
