@@ -4,24 +4,29 @@ import QtQuick.Controls 2.15
 import QtCore
 import QtQuick.Dialogs
 import QtQuick.Layouts 2.15
+import "colors.js" as Colors
+
 Window {
     id: window
     width: 640
     height: 480
     visible: true
-    color: "#232730"
+    color: Colors.primary800
     title: qsTr("Antrakt")
-
 
     Rectangle {
         id: backgroud
-        color: "#232730"
+        color: Colors.primary300
         anchors.fill: parent
+        anchors.leftMargin: 0
+        anchors.rightMargin: 0
+        anchors.topMargin: 0
+        anchors.bottomMargin: 0
 
         Rectangle {
             id: buttonBackground
             y: 0
-            color: "#f0464b55"
+            color: Colors.primary300
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top: parent.top
@@ -33,7 +38,7 @@ Window {
 
             Rectangle {
                 id: btnBckg
-                color: "#f0565c68"
+                color: Colors.primary500
                 radius: 10
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -44,61 +49,44 @@ Window {
                 anchors.topMargin: 10
                 anchors.bottomMargin: 320
 
-                Button {
-                    id: pdfButton
-                    text: qsTr("Generate PDF")
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: parent.top
-                    anchors.bottom: parent.bottom
-                    anchors.leftMargin: 15
-                    anchors.rightMargin: 15
-                    anchors.topMargin: 100
-                    anchors.bottomMargin: 15
-                    font.bold: true
-                    background: Rectangle{
-                        id: pdfButtonBackground
-                        color: "#f0464b55"
-                        radius: 5
+                ColumnLayout {
+                    id: columnLayout
+                    x: 0
+                    y: 0
+                    width: 148
+                    height: 150
+                    spacing: 2
+
+                    CustomButton {
+                        id: customPdfButton
+                        width: 139
+                        height: 35
+                        text: "Generate"
+                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                        onClicked: {
+
+                            saveFileDialog.open()
+                        }
                     }
 
-                    onClicked:{
-                        saveFileDialog.open()
-                        // if(backend){
-                        //     backend.generatePdf()
-                        // }else{
-                        //     console.log("Backend nie jest zdefiniownay")
-                        // }
-                        pdfButtonBackground.color="#f123c68"
+                    CustomButton {
+                        id: customImgButton
+                        width: 138
+                        text: "Select image"
+                        anchors.verticalCenter: btnBckg.verticalCenter
+                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                        onClicked: {
+                            fileDialog.open()
+                        }
                     }
                 }
 
-                Button {
-                    id: imgButton
-                    text: qsTr("Select image")
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.top: parent.top
-                    anchors.bottom: parent.bottom
-                    anchors.leftMargin: 15
-                    anchors.rightMargin: 15
-                    anchors.topMargin: 20
-                    anchors.bottomMargin: 95
-                    font.bold: true
-                    onClicked: fileDialog.open()
-                    background: Rectangle{
-                        id: imgButtonBackground
-                        color: "#f0464b55"
-                        radius:5
-                    }
-
-                }
             }
         }
 
         Rectangle {
             id: imgBackground
-            color: "#2f3440"
+            color: Colors.primary200
             radius: 4
             anchors.left: parent.left
             anchors.right: buttonBackground.left
@@ -108,40 +96,40 @@ Window {
             anchors.rightMargin: 10
             anchors.topMargin: 10
             anchors.bottomMargin: 10
-        Item{
-            id: imageContainer
-            width: parent.width
-            anchors.top:parent.top
-            anchors.topMargin:5
-            anchors.bottomMargin: 5
-            anchors.left:parent.left
-            anchors.right: parent.right
-            anchors.bottom: parent.bottom
-            anchors.leftMargin: 5
-            anchors.rightMargin: 5
-
-            Flickable {
+            Item{
+                id: imageContainer
                 width: parent.width
-                height: parent.height
-                contentWidth: parent.width
-                contentHeight: model.count * parent.height // Adjust height based on number of images
+                anchors.top:parent.top
+                anchors.topMargin:5
+                anchors.bottomMargin: 5
+                anchors.left:parent.left
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+                anchors.leftMargin: 5
+                anchors.rightMargin: 5
 
-                Repeater {
-                    id: imageReapeter
-                    model: imageModel
+                Flickable {
+                    width: parent.width
+                    height: parent.height
+                    contentWidth: parent.width
+                    contentHeight: model.count * parent.height // Adjust height based on number of images
 
-                    Image {
-                        source: modelData
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        fillMode: Image.PreserveAspectFit
-                        width: parent.width
-                        height: parent.height / 3
-                        opacity: 1
-                        y: index * (parent.height / 3)
+                    Repeater {
+                        id: imageReapeter
+                        model: imageModel
+
+                        Image {
+                            source: modelData
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            fillMode: Image.PreserveAspectFit
+                            width: parent.width
+                            height: parent.height / 3
+                            opacity: 1
+                            y: index * (parent.height / 3)
+                        }
                     }
                 }
             }
-        }
         }
     }
     ListModel{
@@ -174,8 +162,8 @@ Window {
         nameFilters: ["PDF files (*pdf)"]
         onAccepted: {
             if(backend){
-        backend.savePath(saveFileDialog.selectedFile)
-            backend.generatePdf()
+                backend.savePath(saveFileDialog.selectedFile)
+                backend.generatePdf()
             }
             else{
                 console.log("Backend nie jest zdefiniowany")
