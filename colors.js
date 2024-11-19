@@ -33,3 +33,14 @@ var neutral700 = "#72756B";
 var neutral800 = "#4C4E46";
 var neutral900 = "#262622";
 
+var backgroundcolor = "#1e1e1e";  
+var background2 = "#252526";  
+var textPrimary = "#d4d4d4"; 
+var textSecondary = "#a0a0a0"; 
+var accent = "#569cd6"; 
+var stringColor = "#ce9178"; 
+var commentColor = "#6a9955"; 
+var functionColor = "#dcdcaa"; 
+var classColor = "#4ec9b0"; 
+var decoratorColor = "#c586c0"; 
+

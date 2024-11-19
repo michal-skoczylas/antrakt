@@ -11,22 +11,30 @@ Window {
     width: 640
     height: 480
     visible: true
-    color: Colors.primary800
+    color: "#252526"
     title: qsTr("Antrakt")
 
     Rectangle {
         id: backgroud
-        color: Colors.primary300
+        color: "#252526"
         anchors.fill: parent
         anchors.leftMargin: 0
         anchors.rightMargin: 0
         anchors.topMargin: 0
         anchors.bottomMargin: 0
+        
+        Text{
+            id: ocrText
+            text: ""
+            Layout.alignment:Qt.AlignHCenter | Qt.AlignVCenter
+            wrapMode: Text.WordWrap
+        }
+
 
         Rectangle {
             id: buttonBackground
             y: 0
-            color: Colors.primary300
+            color: "#252526"
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top: parent.top
@@ -38,7 +46,7 @@ Window {
 
             Rectangle {
                 id: btnBckg
-                color: Colors.primary500
+                color: "#7f7775"
                 radius: 10
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -53,24 +61,50 @@ Window {
                     id: columnLayout
                     x: 0
                     y: 0
-                    width: 148
+                    width: parent.width
                     height: 150
                     spacing: 2
 
                     CustomButton {
                         id: customPdfButton
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        anchors.leftMargin: 10
+                        anchors.rightMargin: 10
                         width: 139
                         height: 35
-                        text: "Generate"
+                        text: "Generate Pdf"
                         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                         onClicked: {
-
                             saveFileDialog.open()
                         }
                     }
 
                     CustomButton {
+                        id: customTextButton
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        anchors.leftMargin: 10
+                        anchors.rightMargin: 10
+                        width: 139
+                        height: 35 
+                        text: "Generate Text"
+                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                        onClicked: {
+                            if(backend._ocr_result != undefined){
+                                crText.text = backend._ocr_result
+                            } else {
+                                console.log("ocr_res undefined")
+                            }
+                        }
+                    }
+
+                    CustomButton {
                         id: customImgButton
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        anchors.leftMargin: 10
+                        anchors.rightMargin: 10
                         width: 138
                         text: "Select image"
                         anchors.verticalCenter: btnBckg.verticalCenter
@@ -86,7 +120,7 @@ Window {
 
         Rectangle {
             id: imgBackground
-            color: Colors.primary200
+            color: "#585554"
             radius: 4
             anchors.left: parent.left
             anchors.right: buttonBackground.left
@@ -155,6 +189,7 @@ Window {
 
         }
     }
+
     FileDialog{
         id: saveFileDialog
         title: "Save PDF"
@@ -171,5 +206,4 @@ Window {
         }
 
     }
-
 }

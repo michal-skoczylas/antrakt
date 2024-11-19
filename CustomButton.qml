@@ -11,7 +11,7 @@ Button {
 
     background: Rectangle {
         id: bgBtn
-        color: Colors.primary600  // Użycie koloru primary600
+        color: "#97847f"  // Użycie koloru primary600 //takie o widac ze bys napisal "użycie koloru primary600"
         radius: 12
         anchors.fill: parent
 
@@ -21,7 +21,7 @@ Button {
             z: -1
             radius: 12
             opacity: 0.2
-            color: Colors.neutral100  // Użycie koloru neutral100
+            color: Colors.neutral100  // Użycie koloru neutral100 ?????????
             anchors.topMargin: 5
             anchors.leftMargin: 5
             id: shadowRect
@@ -45,7 +45,7 @@ Button {
                 bgBtn.color = Colors.accent500;  // Użycie koloru z palety accent
             }
             onReleased: {
-                bgBtn.color = mouseArea.containsMouse ? Colors.accent400 : Colors.primary600;  // Użycie kolorów z palety
+                bgBtn.color = mouseArea.containsMouse ? Colors.accent400 : "#97847f";  // Użycie kolorów z palety
             }
 
             // Zmiana koloru po najechaniu
@@ -53,7 +53,7 @@ Button {
                 bgBtn.color = Colors.accent400;  // Użycie koloru z palety accent
             }
             onExited: {
-                bgBtn.color = Colors.primary600;  // Powrót do koloru primary600
+                bgBtn.color = "#97847f";  // Powrót do koloru primary600
             }
         }
     }
